@@ -26,7 +26,6 @@
     font-family: Plus Jakarta Sans, sans-serif;
     font-size: 32px;
     font-weight: 700;
-    /*line-height: 60px;*/
     text-align: left;
     color: #FFFFFF;
     text-transform: capitalize;
@@ -83,7 +82,6 @@
     .who_we,
     .our_mission{
         flex-direction: column;
-        /*justify-content: space-between;*/
         align-items: center;
     }
 

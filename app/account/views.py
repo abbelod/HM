@@ -16,12 +16,18 @@ import stripe
 import uuid
 from datetime import datetime
 
+UPLOAD_HOOK = 'hooks:upload'
+ACCOUNT_HOME = 'account:home'
+REGISTER_HTML = 'registration/register.html'
+RECHECK_TRUE = '?recheck=true'
+MANAGE_SUBSCRIPTION = 'account:manage_subscription'
+
 def stage(request):
   return render(request, 'stage.html')
 
 def login_view(request):
   if request.user.is_authenticated:
-    return redirect('hooks:upload')
+    return redirect(UPLOAD_HOOK)
 
   if request.method == 'POST':
     email = request.POST['email']
@@ -36,7 +42,7 @@ def login_view(request):
         try:
           return redirect(request.session.get('next'))
         except:
-          return redirect('hooks:upload')
+          return redirect(UPLOAD_HOOK)
       else:
         messages.error(
           request,
@@ -45,8 +51,8 @@ def login_view(request):
     else:
       messages.error(request, 'Invalid Username or Password. Please Try Again.')
 
-  next = request.GET.get('next', '')
-  request.session['next'] = next
+  next_var = request.GET.get('next', '')
+  request.session['next'] = next_var
   return render(
     request,
     'registration/login.html',
@@ -56,25 +62,24 @@ def logout_user(request):
   if request.user.is_authenticated:
     logout(request)
 
-  return redirect('account:home')
+  return redirect(ACCOUNT_HOME)
 
 def home(request):
   if request.user.is_authenticated:
-    return redirect('hooks:upload')
+    return redirect(UPLOAD_HOOK)
 
   contact_us_form = ContactUsForm(request.POST or None)
 
-  if request.method == 'POST':
-    if contact_us_form.is_valid():
-      try:
-        contact_us_form.send()
-      except Exception as e:
-        print(f'An error occurred while sending contact us message {e}')
-        messages.error(request, 'Failed To Send Message')
-        return redirect(reverse('account:home') + '#Contact')
+  if request.method == 'POST' and contact_us_form.is_valid():
+    try:
+      contact_us_form.send()
+    except Exception as e:
+      print(f'An error occurred while sending contact us message {e}')
+      messages.error(request, 'Failed To Send Message')
+      return redirect(reverse(ACCOUNT_HOME) + '#Contact')
 
-      messages.success(request, 'Message Sent Successfully')
-      return redirect(reverse('account:home') + '#Contact')
+    messages.success(request, 'Message Sent Successfully')
+    return redirect(reverse(ACCOUNT_HOME) + '#Contact')
 
   return render(
     request,
@@ -112,7 +117,7 @@ def register(request):
       messages.error(request, 'At Least 6 Characters Are Required')
       return render(
         request,
-        'registration/register.html',
+        REGISTER_HTML,
         context={'session_id': checkout_session_id}
       )
 
@@ -120,20 +125,20 @@ def register(request):
       messages.error(request, 'Passwords Do Not Match.')
       return render(
         request,
-        'registration/register.html',
+        REGISTER_HTML,
         context={'session_id': checkout_session_id}
       )
 
-    User = get_user_model()
-    if User.objects.filter(email=email).exists():
+    user_mod = get_user_model()
+    if user_mod.objects.filter(email=email).exists():
       messages.error(request, 'This Email Is Already Registered.')
       return render(
         request,
-        'registration/register.html',
+        REGISTER_HTML,
         context={'session_id': checkout_session_id}
       )
 
-    user = User.objects.create_user(email=email, password=password1)
+    user = user_mod.objects.create_user(email=email, password=password1)
     user.first_name = name
     user.save()
 
@@ -179,7 +184,7 @@ def register(request):
 
       return render(
         request,
-        'registration/register.html',
+        REGISTER_HTML,
         context={
           'price_id': 'free',
           'success': True
@@ -218,7 +223,7 @@ def register(request):
         messages.error(request, "Subscription Failed. Please Try Again Later.")
         return render(
           request,
-          'registration/register.html',
+          REGISTER_HTML,
           context={'session_id': checkout_session_id}
         )
 
@@ -226,13 +231,13 @@ def register(request):
 
       _login(request, user)
 
-      return redirect("hooks:upload")
+      return redirect(UPLOAD_HOOK)
   elif request.method == 'GET':
     checkout_session_id = request.GET.get('session_id')
 
     return render(
       request,
-      'registration/register.html',
+      REGISTER_HTML,
       context={'session_id': checkout_session_id}
     )
 
@@ -411,12 +416,12 @@ def billing_portal(request):
 
     session = stripe.billing_portal.Session.create(
       customer=customer.stripe_customer_id,
-      return_url=settings.DOMAIN + reverse('account:home'),
+      return_url=settings.DOMAIN + reverse(ACCOUNT_HOME),
     )
 
     return redirect(session.url)
   except Exception as _:
-    return redirect(reverse('account:home'))
+    return redirect(reverse(ACCOUNT_HOME))
 
 def verify(request, token):
   try:
@@ -427,9 +432,9 @@ def verify(request, token):
       user.save()
 
       _login(request, user)
-      return redirect('hooks:upload')
+      return redirect(UPLOAD_HOOK)
   except:
-    return redirect(reverse('account:home'))
+    return redirect(reverse(ACCOUNT_HOME))
 
 def subscribe(request, price_id):
   if request.method == 'GET':
@@ -459,7 +464,7 @@ def subscribe(request, price_id):
 
       return redirect(checkout_session.url)
     except Exception as _:
-      return redirect(reverse('account:home'))
+      return redirect(reverse(ACCOUNT_HOME))
 
 @login_required
 def add_credits(request, kind):
@@ -501,7 +506,7 @@ def add_credits(request, kind):
 
         return redirect(checkout_session.url)
       except Exception as _:
-        return redirect(reverse('account:home'))
+        return redirect(reverse(ACCOUNT_HOME))
 
 @login_required
 def add_credits_success(request):
@@ -516,10 +521,10 @@ def add_credits_success(request):
 
     request.user.subscription.save()
 
-    return redirect(reverse('account:manage_subscription') + '?recheck=true')
+    return redirect(reverse(MANAGE_SUBSCRIPTION) + RECHECK_TRUE)
 
-def add_credits_cancel(request):
-  return redirect(reverse('account:manage_subscription'))
+def add_credits_cancel():
+  return redirect(reverse(MANAGE_SUBSCRIPTION))
 
 @login_required
 def upgrade_subscription(request, price_id):
@@ -548,9 +553,9 @@ def downgrade_subscription(request):
       request.user.subscription.plan = pro_plan
       request.user.subscription.save()
 
-      return redirect(reverse('account:manage_subscription') + '?recheck=true')
-  except Exception as e:
-    return redirect(reverse('account:manage_subscription'))
+      return redirect(reverse(MANAGE_SUBSCRIPTION) + RECHECK_TRUE)
+  except Exception:
+    return redirect(reverse(MANAGE_SUBSCRIPTION))
 
 @login_required
 def cancel_subscription(request):
@@ -571,9 +576,9 @@ def cancel_subscription(request):
     request.user.subscription.current_period_end = subscription.current_period_end
     request.user.subscription.save()
 
-    return redirect(reverse('account:manage_subscription') + '?recheck=true')
+    return redirect(reverse(MANAGE_SUBSCRIPTION) + RECHECK_TRUE)
   except Exception as _:
-    return redirect(reverse('account:manage_subscription'))
+    return redirect(reverse(MANAGE_SUBSCRIPTION))
 
 @login_required
 def subscription(request):
@@ -590,7 +595,7 @@ def subscription(request):
   )
 
 def send_html_email2(
-  subject, message, from_email, to_email, html_file, context
+  subject,  from_email, to_email, html_file, context
 ):
   html_content = render_to_string(html_file, context)
 
@@ -602,7 +607,6 @@ def send_html_email2(
 
 def send_confirmation_email(email, name):
   # HTML email content
-  logi_url = settings.DOMAIN + "login"
   if name is None:
     name = "there"
   html_content = f"""

@@ -17,7 +17,7 @@ class CustomUserManager(BaseUserManager):
     return self.create_user(email, password, **extra_fields)
 
 class Plan(models.Model):
-  stripe_price_id = models.CharField(max_length=255, null=True)
+  stripe_price_id = models.CharField(max_length=255, blank=True)
   name = models.CharField(max_length=50)
   price = models.DecimalField(max_digits=5, decimal_places=2, null=True)
   price_per_hook = models.DecimalField(
@@ -31,7 +31,7 @@ class StripeCustomer(models.Model):
 
 class Subscription(models.Model):
   plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
-  stripe_subscription_id = models.CharField(max_length=255, null=True)
+  stripe_subscription_id = models.CharField(max_length=255, blank=True)
   customer = models.ForeignKey(
     StripeCustomer, on_delete=models.CASCADE, null=True
   )

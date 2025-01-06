@@ -1,10 +1,10 @@
 import os
 import platform
 import shutil
+fonts_dir = 'dependencies/fonts'
 
 def install_fonts():
     # Define the fonts directory
-    fonts_dir = 'dependencies/fonts'
     
     # Check if the fonts directory exists
     if not os.path.exists(fonts_dir):
@@ -51,10 +51,10 @@ def font_exists(font_name):
     system = platform.system()
     print(system)
     if system == 'Windows':
-        fonts_dest_dir = os.path.join(os.environ['WINDIR'], 'dependencies/fonts')
+        fonts_dest_dir = os.path.join(os.environ['WINDIR'], fonts_dir)
         return os.path.exists(os.path.join(fonts_dest_dir, font_name))
     elif system == 'Darwin' or system == 'Linux':
-        fonts_dest_dir = os.path.join(os.getcwd(), 'dependencies/fonts')
+        fonts_dest_dir = os.path.join(os.getcwd(), fonts_dir)
         print(fonts_dest_dir, '---------------------------')
         return os.path.exists(os.path.join(fonts_dest_dir, font_name))
     else:

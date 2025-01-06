@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import *
+from .views import home, stage, login_view, logout_user, register, subscription, verify, subscribe, stripe_webhook, manage_subscription, billing_portal, add_credits, add_credits_success, add_credits_cancel, upgrade_subscription, downgrade_subscription, cancel_subscription, terms_and_conditions, privacy_policy, refund_policy, affiliate_program
 
 app_name = 'account'
 

@@ -115,7 +115,6 @@ footer > .navigation_bar > .box > ul li a {
         margin-bottom: 1rem;
     }
     footer > .navigation_bar {
-        flex-direction: row-reverse;
         align-items: flex-start;
         justify-content: space-between;
         display: flex;

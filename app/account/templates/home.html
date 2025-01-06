@@ -147,7 +147,6 @@
   /* Title Styling */
   .title {
     text-align: center;
-    /* margin-bottom: 60px; */
   }
 
   .title h1 {
@@ -826,17 +825,14 @@
           <div class="wrapper">
             <label for="full_name">Full Name</label>
             {{ contact_us_form.full_name }}
-            <!-- <input id="full_name" type="text" placeholder="Enter Your Full Name" /> -->
           </div>
           <div class="wrapper">
             <label for="email">Email address</label>
             {{ contact_us_form.email }}
-            <!-- <input id="email" type="email" placeholder="Enter your Email address" /> -->
           </div>
           <div class="wrapper">
             <label for="message">Write your message</label>
             {{ contact_us_form.message }}
-            <!-- <textarea id="message" placeholder="Write Us Your Question Here..."></textarea> -->
           </div>
           <button type="submit">
             Send Message
@@ -908,12 +904,7 @@
             <li>
               <a href="{% url 'account:privacy_policy' %}">Privacy policy</a>
             </li>
-            <!-- <li>
-              <a href="{% url 'account:refund_policy' %}">Refund Policy</a>
-            </li>
-            <li>
-              <a href="{% url 'account:affiliate_program' %}">Affiliate Program Policy</a>
-            </li> -->
+            
           </ul>
         </div>
       </div>

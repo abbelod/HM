@@ -48,55 +48,9 @@ a {
       rgba(72, 90, 255, 0) 100%);
 }
 
-/*.root > header {
-    width: 100%;
-    height: 53px;
-    padding: 0 72px;
-    background: #191919;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.root > header > img {
-    width: 162px;
-    height: 23px;
-    object-fit: contain;
-}
-
-.root > header > .account {
-    display: flex;
-    align-items: center;
-}
-
-.root > header > .account > h5 {
-    font-family: Montserrat, sans-serif;
-    font-size: 9px;
-    font-weight: 600;
-    line-height: 11px;
-    text-align: left;
-    padding-right: 10px;
-    margin-right: 10px;
-    border-right: 1px solid #FFFFFFB2;
-    color: #FFFFFF;
-}
-
-.root > header > .account > .user {
-    cursor: pointer;
-    width: 33px;
-    height: 33px;
-    border-radius: 50%;
-    background: #C4C4C4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-*/
 .root>.menu {
-  /*padding: 12px 9px;*/
   position: absolute;
   width: 222px;
-  /*height: 232px;*/
   border-radius: 5px;
   top: 74px;
   right: 72px;
@@ -356,8 +310,6 @@ a {
   /* Automatically wrap */
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
-/*.root > .content > .block_a > .box > .wrapper:first-child {*/
-/*}*/
 
 .root>.content>.block_a>.box>.wrapper:last-child {
   margin-bottom: 0;
@@ -423,13 +375,11 @@ a {
 
 .subtitles-background-color-input::-webkit-color-swatch,
 .color-input::-webkit-color-swatch {
-  /*border-radius: 5px;*/
   border: none;
 }
 
 .subtitles-background-color-input::-moz-color-swatch,
 .color-input::-moz-color-swatch {
-  /*border-radius: 5px;*/
   border: none;
 }
 
@@ -474,12 +424,9 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* height: 375px; */
 }
 
-.root>.content>.block_b>.display.preview {
-  /* height: 450px; */
-}
+
 
 .root>.content>.block_b>.display.preview {
   overflow: hidden;
@@ -576,6 +523,8 @@ a {
     border-radius: 8px;
     right: 96px;
     top: 56px;
+    transform: scale(0.8);
+
   }
 
   .root>.menu>ul li {
@@ -594,9 +543,7 @@ a {
     padding-top: 12px;
   }
 
-  .root>.menu {
-    transform: scale(0.8);
-  }
+
 
   .root>.content {
     padding: 0px 0px;
@@ -645,8 +592,9 @@ a {
   }
 
   .root>.content>.block_a>h2 {
-    font-size: 20px;
-    line-height: 29px;
+   
+    font-size: 32px;
+    line-height: 40.32px;
   }
 
   .root>.content>.block_a>button>img {
@@ -691,10 +639,7 @@ a {
     line-height: 23.2px;
   }
 
-  .root>.content>.block_a>h2 {
-    font-size: 32px;
-    line-height: 40.32px;
-  }
+
 
   .root>.content>.block_a>.box>.color-picker-container {
     margin-top: 16px;
@@ -776,12 +721,11 @@ a {
   .root>.content>.block_a,
   .root>.content>.block_b {
     transform: scale(0.9);
-  }
-
-  .root>.content>.block_b {
     margin-left: 0px;
     transform: scale(0.9) translateX(-25px);
   }
+
+
 }
 
 .error {
@@ -826,7 +770,6 @@ a {
 .header-two {
   height: 50px;
   gap: 10px;
-  /* margin-left: 1.3rem; */
 }
 
 .header-profile,
@@ -839,7 +782,6 @@ a {
 .hm-logo {
   color: white;
   display: flex;
-  /* margin-left: -2rem; */
 }
 
 .admin-header .credit-score span {
@@ -891,9 +833,7 @@ a {
     width: 100%;
   }
 
-  .root>.content>.block_a>button {
-    width: 100%;
-  }
+
 
   root>.content>.block_a>.box>.wrapper>label {
     font-size: 16px;
@@ -915,10 +855,7 @@ a {
   .root>.content>.block_a>.box>.wrapper>input::placeholder {
     font-size: 15.5px;
   }
-  .root>.content>.block_b>.display>.head {
-    /* width: 100%;
-    height: 90px; */
-  }
+
 }
 
 @media screen and (max-width:1288px) {
@@ -956,9 +893,7 @@ a {
     font-size: 16px;
   }
 
-  .root>.content>.block_a>button {
-    width: 100%;
-  }
+
 
   .root>.content>.block_a>.box>.color-picker-container>label {
     font-size: 16px;
@@ -979,16 +914,14 @@ a {
   .root>.content {
     flex-direction: column;
     align-items: center;
+    width: 85%;
+    padding: 40px 0px 0px 20px;
   }
 
   .root>.content>.block_a {
     width: 100%;
   }
 
-  .root>.content {
-    width: 85%;
-    padding: 40px 0px 0px 20px;
-  }
   .content > .block_a > .box > .wrapper > .options {
     grid-template-columns: repeat(2,1fr);
   }
@@ -1005,11 +938,10 @@ a {
   .root>.content>.block_b>.display.preview {
     width: 100%;
     margin-left: 0;
+    margin-bottom: 2rem;
+
   }
 
-  .root>.content>.block_b>.display.preview {
-    margin-bottom: 2rem;
-  }
 
   .root>.content>.block_b>.display>.head>h1 {
     font-size: 28px;
@@ -1023,9 +955,7 @@ a {
     font-size: 16px;
   }
 
-  .root>.content>.block_a>button {
-    width: 100%;
-  }
+
 
   .root>.content>.block_a>.box>.color-picker-container>label {
     font-size: 16px;

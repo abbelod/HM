@@ -23,8 +23,8 @@ class Hook(models.Model):
     validators=[validate_video_file]
   )
   google_sheets_link = models.URLField(max_length=500, blank=True, null=True)
-  eleven_labs_api_key = models.CharField(max_length=255, blank=True, null=True)
-  voice_id = models.CharField(max_length=255, blank=True, null=True)
+  eleven_labs_api_key = models.CharField(max_length=255, blank=True)
+  voice_id = models.CharField(max_length=255, blank=True)
   box_color = models.CharField(max_length=7, default='#485AFF')
   font_color = models.CharField(max_length=7, default='#FFFFFF')
   task_id = models.CharField(max_length=1000, unique=True)

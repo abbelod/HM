@@ -4,7 +4,6 @@
     display: flex;
     justify-content: space-between;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(122, 135, 255, 0.06) 88%, rgba(72, 90, 255, 0) 100%);
-    /*background: #FFFFFF;*/
 }
 
 .info_block {
@@ -13,7 +12,6 @@
 }
 
 .info_block>h1 {
-    /*margin: 16px 0;*/
     font-family: Plus Jakarta Sans, sans-serif;
     font-size: 35px;
     font-weight: 700;
@@ -303,7 +301,6 @@
     .info_block {
         display: flex;
         flex-direction: column;
-        /*align-items: center;*/
     }
 
     .info_block>.info_block_desktop_p {

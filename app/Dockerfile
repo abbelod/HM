@@ -9,13 +9,13 @@ WORKDIR /app
 
 RUN apt-get update && \
     apt-get install -y \
-    gcc \
     ca-certificates \
     ffmpeg \
     fontconfig \
+    gcc \
     imagemagick \
     libbz2-1.0 \
-    libc6  \
+    libc6 \
     libcairo2-dev \
     libcom-err2 \
     libcrypt1 \
@@ -54,7 +54,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 COPY ./policy.xml /etc/ImageMagick-6/policy.xml
-RUN sed -i 's/<policy domain="path" rights="none" pattern="@\*"/<!--<policy domain="path" rights="none" pattern="@\*"-->/' /etc/ImageMagick-6/policy.xml || true \
-    && sed -i 's/<policy domain="path" rights="none" pattern="@\*"/<!--<policy domain="path" rights="none" pattern="@\*"-->/' /etc/ImageMagick-7/policy.xml || true
+RUN sed -i 's/<policy domain="path" rights="none" pattern="@\*"/<!--<policy domain="path" rights="none" pattern="@\*"-->/' /etc/ImageMagick-6/policy.xml || true && \
+    sed -i 's/<policy domain="path" rights="none" pattern="@\*"/<!--<policy domain="path" rights="none" pattern="@\*"-->/' /etc/ImageMagick-7/policy.xml || true
 
 CMD ["bash", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]

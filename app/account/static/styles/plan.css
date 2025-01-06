@@ -46,10 +46,8 @@ img.boosted_most_popularr {
   width: 260px;
   background: white;
   padding: 18px 23px 18px 23px;
-  /*height: 228px;*/
   display: flex;
   flex-direction: column;
-  /*align-items: center;*/
   border-radius: 8px;
   border: 1px solid #000000;
   box-shadow: 4px 4px 0 -2px #000000;
@@ -124,8 +122,6 @@ img.boosted_most_popularr {
 .plan_section>.prices>.card>a {
   cursor: pointer;
   background: white;
-  /*width: Fill (320px)px;*/
-  /*height: Hug (65px)px;*/
   width: 213px;
   height: 43px;
   font-family:
@@ -378,7 +374,6 @@ img.boosted_most_popularr {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /*justify-content: space-between;*/
   }
 
   .plan_section>.prices>.card {
